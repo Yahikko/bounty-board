@@ -18,4 +18,6 @@ fun main() {
     println("The hero embarks on her journey to locate the enchanted sword.")
     playerLevel++
     println(playerLevel)
+
+    println("The hero discovered a magic mirror that shows his name in reverse: ${HERO_NAME.reversed()}.")
 }
