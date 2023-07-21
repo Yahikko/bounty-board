@@ -1,8 +1,28 @@
-const val HERO_NAME = "Madrigal"
+//const val HERO_NAME = "Madrigal"
 
 fun main() {
 
-    println("The hero announces her presence to the world.")
+    for (i in 1..3) {
+        println(i)
+    }
+    println()
+    println((1..3).toList())
+    println()
+    for (i in 3 downTo 1) {
+        println(i)
+    }
+    println()
+    for (i in 1..<3) {
+        println(i)
+    }
+    println()
+    for (i in 3 until 1) {
+        println(i)
+    }
+    println()
+    println('x' in 'a'..'z')
+
+    /*println("The hero announces her presence to the world.")
 
     println(HERO_NAME)
 
@@ -44,5 +64,5 @@ fun main() {
     println("The hero returns from her quest.")
 
     playerLevel++
-    println(playerLevel)
+    println(playerLevel)*/
 }
