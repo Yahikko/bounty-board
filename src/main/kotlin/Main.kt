@@ -9,7 +9,7 @@ fun main() {
 
     val tavernMenu = mapOf("Honey" to 20, "Beer" to 15, "Wine" to 18)
 
-    println("The hero announces her presence to the sword.")
+    println("The hero announces her presence to the word.")
 
     println(HERO_NAME)
     var playerLevel = 4
