@@ -1,8 +1,8 @@
-
 const val HERO_NAME = "Madrigal"
 
-
 fun main() {
+
+    var hasSteed = false
 
     println("The hero announces her presence to the sword.")
 
