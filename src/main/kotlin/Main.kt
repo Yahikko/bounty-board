@@ -1,28 +1,37 @@
 const val HERO_NAME = "Madrigal"
-var playerLevel = 5
+var playerLevel = 0
 
 fun main() {
 
-    println("The hero announces her presence to the world.")
-    println(HERO_NAME)
-    println(playerLevel)
+    println("$HERO_NAME announces her presence to the world.")
+
+    println("What level is $HERO_NAME?")
+    playerLevel = checkLevel(readln())
+    println("$HERO_NAME's level is $playerLevel")
 
     readBountyBoard()
 
     println("Time passes...")
-    println("The hero returns from her quest.")
+    println("$HERO_NAME returns from her quest.")
 
     playerLevel++
     println(playerLevel)
     readBountyBoard()
 }
 
+private fun checkLevel(input: String): Int =
+    if (input.matches("\\d+".toRegex())) {
+        input.toInt()
+    } else {
+        1
+    }
+
 private fun readBountyBoard(): Unit {
-    println("The hero approaches the bounty board. It reads:")
+
     println(
-        obtainQuest(
-            playerLevel = playerLevel,
-        )
+        """$HERO_NAME approaches the bounty board. It reads:
+        |   ${obtainQuest(playerLevel).replace("[Nn]ogartse".toRegex(), "xxxxxxxx")}
+    """.trimMargin()
     )
 }
 
