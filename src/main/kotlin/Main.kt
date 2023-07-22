@@ -52,12 +52,8 @@ private fun obtainQuest(
     hasBefriendedBarbarians: Boolean = true,
     playerClass: String = "paladin"
 ): String? {
-    /*if (playerLevel <= 0) {
-        throw IllegalAccessException("The player's level must be at least 1.")
-    }*/
-
-    require(playerLevel > 0) {
-        "The player's level must be at least 1."
+    if (playerLevel <= 0) {
+        throw InvalidPlayerLevelException()
     }
 
     return when (playerLevel) {
@@ -84,3 +80,6 @@ private fun obtainQuest(
         else -> null
     }
 }
+
+class InvalidPlayerLevelException() :
+    IllegalAccessException("Invalid player level (must be at least 1).")
