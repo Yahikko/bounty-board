@@ -15,6 +15,19 @@ fun main() {
     playerLevel++
     println(playerLevel)
     readBountyBoard()
+
+    `**~ prolly not a good idea!~**`()
+}
+
+private fun  `**~ prolly not a good idea!~**`() {
+    println("Reversed quotation marks in Kotlin")
+    /*
+    * Такая функция обеспечивает совместимость с другими языками (зарезервированные слова).
+    *
+    * Или же можно сделать более выразительные названия функций:
+    * fun `users should be signed out when they click logout`()
+    * вместо fun usersShouldBeSignedOutWhenTheyClickLogout().
+    * */
 }
 
 private fun readBountyBoard(): Unit {
