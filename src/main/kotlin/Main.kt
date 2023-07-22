@@ -1,3 +1,5 @@
+import java.lang.Exception
+
 const val HERO_NAME = "Madrigal"
 var playerLevel = 0
 
@@ -6,7 +8,8 @@ fun main() {
     println("$HERO_NAME announces her presence to the world.")
 
     println("What level is $HERO_NAME?")
-    playerLevel = checkLevel(readln())
+//    playerLevel = checkLevel(readln())
+    playerLevel = readLine()?.toIntOrNull() ?: 1
     println("$HERO_NAME's level is $playerLevel")
 
     readBountyBoard()
@@ -19,6 +22,23 @@ fun main() {
     readBountyBoard()
 }
 
+private fun readBountyBoard(): Unit {
+
+    val message: String = try {
+        val quest: String? = obtainQuest(playerLevel)
+
+        quest?.replace("[Nn]ogartse".toRegex(), "xxxxxxxx")
+            ?.let { censoredQuest ->
+                """$HERO_NAME approaches the bounty board. It reads:
+        |   $censoredQuest
+    """.trimMargin()
+            } ?: "$HERO_NAME approaches the bounty board, but it is blank."
+    } catch (e: Exception) {
+        "$HERO_NAME can't read what's on the bounty board."
+    }
+    println(message)
+}
+
 private fun checkLevel(input: String): Int =
     if (input.matches("\\d+".toRegex())) {
         input.toInt()
@@ -26,40 +46,41 @@ private fun checkLevel(input: String): Int =
         1
     }
 
-private fun readBountyBoard(): Unit {
-
-    println(
-        """$HERO_NAME approaches the bounty board. It reads:
-        |   ${obtainQuest(playerLevel).replace("[Nn]ogartse".toRegex(), "xxxxxxxx")}
-    """.trimMargin()
-    )
-}
-
 private fun obtainQuest(
     playerLevel: Int,
     hasAngeredBarbarians: Boolean = false,
     hasBefriendedBarbarians: Boolean = true,
     playerClass: String = "paladin"
-): String = when (playerLevel) {
+): String? {
+    /*if (playerLevel <= 0) {
+        throw IllegalAccessException("The player's level must be at least 1.")
+    }*/
 
-    1 -> "Meet Mr. Bubbles in the land of soft things."
-
-    in 2..5 -> {
-        // Проверить возможность дипломатического решения
-        val canTalkToBarbarians = !hasAngeredBarbarians &&
-                (hasBefriendedBarbarians || playerClass == "barbarian")
-        if (canTalkToBarbarians) {
-            "Convince the barbarians to call off their invasion."
-        } else {
-            "Save the town from the barbarian invasions."
-        }
+    require(playerLevel > 0) {
+        "The player's level must be at least 1."
     }
 
-    6 -> "Locate the enchanted sword."
+    return when (playerLevel) {
 
-    7 -> "Recover the long-lost artifact of creation."
+        1 -> "Meet Mr. Bubbles in the land of soft things."
 
-    8 -> "Defeat Nogartse, bringer of death and eater of worlds."
+        in 2..5 -> {
+            // Проверить возможность дипломатического решения
+            val canTalkToBarbarians = !hasAngeredBarbarians &&
+                    (hasBefriendedBarbarians || playerClass == "barbarian")
+            if (canTalkToBarbarians) {
+                "Convince the barbarians to call off their invasion."
+            } else {
+                "Save the town from the barbarian invasions."
+            }
+        }
 
-    else -> "There are no quests right now."
+        6 -> "Locate the enchanted sword."
+
+        7 -> "Recover the long-lost artifact of creation."
+
+        8 -> "Defeat Nogartse, bringer of death and eater of worlds."
+
+        else -> null
+    }
 }
